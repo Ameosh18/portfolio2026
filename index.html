@@ -755,7 +755,7 @@
   /* ── CASE STUDY CARD ── */
   .work-card {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 3fr;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 4px;
@@ -767,8 +767,8 @@
   }
 
   .work-card:hover {
-    border-color: rgba(200, 169, 126, 0.35);
-    box-shadow: 0 0 48px rgba(200, 169, 126, 0.06);
+    border-color: rgba(200, 169, 126, 0.5);
+    box-shadow: 0 8px 64px rgba(200, 169, 126, 0.12);
   }
 
   .work-card-image {
@@ -785,16 +785,16 @@
     object-position: center;
     display: block;
     transition: transform 0.6s ease, opacity 0.35s ease;
-    opacity: 0.88;
+    opacity: 0.8;
   }
 
   .work-card:hover .work-card-image img {
     transform: scale(1.03);
-    opacity: 1;
+    opacity: 0.95;
   }
 
   .work-card-content {
-    padding: 64px 56px;
+    padding: 52px 48px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -805,22 +805,17 @@
   .work-card-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 28px;
-  }
-
-  .work-card-badge::before {
-    content: '';
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
+    align-self: flex-start;
+    gap: 0;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--bg);
     background: var(--accent);
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 2px;
+    margin-bottom: 28px;
   }
 
   .work-card-title {
@@ -834,10 +829,11 @@
   }
 
   .work-card-subtitle {
-    font-size: 13px;
-    letter-spacing: 0.06em;
-    color: var(--muted);
-    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: 0;
+    color: var(--accent);
+    text-transform: none;
+    font-weight: 300;
     margin-bottom: 32px;
   }
 
@@ -849,11 +845,11 @@
   }
 
   .work-card-description {
-    font-size: 15px;
+    font-size: 16px;
     color: var(--muted);
     line-height: 1.8;
-    max-width: 380px;
-    margin-bottom: 48px;
+    max-width: 420px;
+    margin-bottom: 40px;
   }
 
   .work-card-meta {
@@ -894,13 +890,7 @@
     transition: gap 0.2s;
   }
 
-  .work-card:hover .work-card-link { gap: 18px; }
-
-  .work-card-link::after {
-    content: '→';
-    font-size: 16px;
-    transition: transform 0.2s;
-  }
+  .work-card:hover .work-card-link { letter-spacing: 0.14em; }
 
   @media (max-width: 1024px) {
     .work-card {
@@ -952,133 +942,110 @@
   }
 
   .ai-workflow .section-header {
-    margin-bottom: 80px;
+    margin-bottom: 56px;
   }
 
-  /* Steps grid */
+  /* Unified steps box */
   .workflow-steps {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 48px 40px 52px;
+    gap: 0;
   }
 
-  /* Horizontal rule spanning full width behind all steps */
+  /* Gold connecting line through all circle centers */
   .workflow-steps::before {
     content: '';
     position: absolute;
-    top: 28px; /* vertically centered with the number circle */
-    left: calc(28px / 2); /* half circle width offset */
-    right: calc(28px / 2);
+    top: calc(48px + 24px); /* padding-top + circle radius */
+    left: 12.5%;            /* center of first column */
+    right: 12.5%;           /* center of last column */
     height: 1px;
-    background: var(--border);
+    background: var(--accent);
+    opacity: 0.35;
     z-index: 0;
   }
 
   .workflow-step {
-    padding: 0 40px;
+    padding: 0 20px;
     display: flex;
     flex-direction: column;
-    gap: 0;
+    align-items: center;
+    text-align: center;
     position: relative;
   }
 
   .workflow-step:first-child { padding-left: 0; }
   .workflow-step:last-child  { padding-right: 0; }
 
+  /* Arrowhead between each step — vertically centered in the step */
+  .workflow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -5px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 8px solid rgba(200, 169, 126, 0.4);
+    z-index: 2;
+    transition: border-left-color 0.5s ease;
+  }
+
   /* Number circle */
   .step-number {
-    width: 56px;
-    height: 56px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    border: 1px solid var(--border);
+    border: 2px solid var(--accent);
     background: var(--bg);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-display);
+    font-family: var(--font-body);
     font-size: 18px;
-    font-weight: 300;
+    font-weight: 700;
     color: var(--accent);
-    letter-spacing: 0.04em;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
     position: relative;
     z-index: 1;
-    transition: border-color 0.3s, background 0.3s;
+    flex-shrink: 0;
+    transition: border-color 0.5s ease, color 0.5s ease, background 0.3s ease, box-shadow 0.5s ease;
   }
 
   .workflow-step:hover .step-number {
-    border-color: var(--accent);
-    background: rgba(200, 169, 126, 0.06);
-  }
-
-  /* AI tag chip */
-  .step-ai-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-
-  .step-ai-tag::before {
-    content: '';
-    display: inline-block;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--accent);
-    opacity: 0.6;
+    background: var(--bg);
+    box-shadow: 0 0 0 6px rgba(200, 169, 126, 0.1), 0 0 24px rgba(200, 169, 126, 0.2);
   }
 
   .step-title {
-    font-family: var(--font-display);
-    font-size: clamp(22px, 2vw, 28px);
-    font-weight: 300;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
     color: var(--text);
-    margin-bottom: 16px;
-  }
-
-  .step-divider {
-    width: 32px;
-    height: 1px;
-    background: var(--border);
-    margin-bottom: 16px;
-    transition: width 0.3s, background 0.3s;
-  }
-
-  .workflow-step:hover .step-divider {
-    width: 48px;
-    background: var(--accent);
+    margin-bottom: 12px;
+    transition: color 0.5s ease;
   }
 
   .step-desc {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--muted);
     line-height: 1.75;
-    max-width: 220px;
-  }
-
-  /* Step border separator (right side) */
-  .workflow-step:not(:first-child)::before {
-    content: '';
-    position: absolute;
-    top: 56px; /* below circle */
-    left: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--border);
+    max-width: 200px;
+    transition: color 0.5s ease;
   }
 
   /* CTA row */
   .workflow-cta {
-    margin-top: 72px;
-    padding-top: 48px;
+    margin-top: 56px;
+    padding-top: 40px;
     border-top: 1px solid var(--border);
     display: flex;
     align-items: center;
@@ -1105,44 +1072,40 @@
     padding: 14px 32px;
     border: 1px solid rgba(200, 169, 126, 0.3);
     border-radius: 2px;
-    transition: background 0.25s, border-color 0.25s, gap 0.2s;
+    transition: background 0.25s, border-color 0.25s, letter-spacing 0.2s;
   }
 
   .workflow-cta-link:hover {
     background: rgba(200, 169, 126, 0.06);
     border-color: var(--accent);
-    gap: 18px;
-  }
-
-  .workflow-cta-link::after {
-    content: '→';
-    font-size: 15px;
+    letter-spacing: 0.14em;
   }
 
   @media (max-width: 1024px) {
     .workflow-steps {
       grid-template-columns: repeat(2, 1fr);
-      gap: 56px 0;
+      padding: 40px 32px;
     }
 
     .workflow-steps::before { display: none; }
+    .workflow-step:not(:last-child)::after { display: none; }
 
-    .workflow-step:not(:first-child)::before { display: none; }
-
-    .workflow-step {
-      padding: 0 40px 0 0;
+    .workflow-step,
+    .workflow-step:first-child,
+    .workflow-step:last-child {
+      padding: 0 24px 40px;
+      align-items: flex-start;
+      text-align: left;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 40px;
     }
 
     .workflow-step:nth-child(2n) {
-      padding-right: 0;
-      padding-left: 40px;
       border-left: 1px solid var(--border);
     }
 
     .workflow-step:nth-last-child(-n+2) {
       border-bottom: none;
+      padding-bottom: 0;
     }
   }
 
@@ -1153,19 +1116,23 @@
 
     .workflow-steps {
       grid-template-columns: 1fr;
-      gap: 0;
+      padding: 32px 24px;
     }
 
     .workflow-step,
-    .workflow-step:nth-child(2n) {
-      padding: 40px 0;
+    .workflow-step:nth-child(2n),
+    .workflow-step:first-child,
+    .workflow-step:last-child {
+      padding: 32px 0;
+      align-items: flex-start;
+      text-align: left;
       border-bottom: 1px solid var(--border);
       border-left: none;
-      padding-left: 0;
     }
 
     .workflow-step:last-child {
       border-bottom: none;
+      padding-bottom: 0;
     }
 
     .workflow-cta {
@@ -1181,6 +1148,55 @@
     }
   }
 
+  /* ── AI WORKFLOW STEP ANIMATION ── */
+  .workflow-step {
+    cursor: pointer;
+  }
+
+  /* Inactive: dim text + border colours only — background stays solid so the line never bleeds through */
+  .workflow-step.is-inactive .step-number {
+    border-color: rgba(200, 169, 126, 0.18);
+    color:        rgba(200, 169, 126, 0.18);
+    background:   var(--bg);
+  }
+
+  .workflow-step.is-inactive .step-title {
+    color: rgba(255, 255, 255, 0.18);
+  }
+
+  .workflow-step.is-inactive .step-desc {
+    color: rgba(170, 170, 170, 0.18);
+  }
+
+  .workflow-step.is-inactive:not(:last-child)::after {
+    border-left-color: rgba(200, 169, 126, 0.08);
+  }
+
+  /* Active: restore full colours + pulsing glow */
+  .workflow-step.is-active .step-number {
+    border-color: var(--accent);
+    color:        var(--accent);
+    background:   var(--bg);
+    animation: step-circle-pulse 2.4s ease-in-out infinite;
+  }
+
+  .workflow-step.is-active .step-title {
+    color: var(--text);
+  }
+
+  .workflow-step.is-active .step-desc {
+    color: var(--muted);
+  }
+
+  .workflow-step.is-active:not(:last-child)::after {
+    border-left-color: rgba(200, 169, 126, 0.75);
+  }
+
+  @keyframes step-circle-pulse {
+    0%,  100% { box-shadow: 0 0 0 4px rgba(200,169,126,0.10), 0 0 20px rgba(200,169,126,0.20); }
+    50%        { box-shadow: 0 0 0 9px rgba(200,169,126,0.18), 0 0 38px rgba(200,169,126,0.38); }
+  }
+
   /* ── METRICS / IMPACT ── */
   .metrics {
     background: var(--surface);
@@ -1189,40 +1205,42 @@
   }
 
   .metrics .section-header {
-    margin-bottom: 72px;
+    margin-bottom: 56px;
   }
 
   .metrics-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
   }
 
   .metric-card {
-    padding: 48px 48px 48px 0;
-    border-right: 1px solid var(--border);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
-    gap: 0;
     position: relative;
-    transition: background 0.3s;
+    overflow: hidden;
+    transition: border-color 0.35s ease, box-shadow 0.35s ease;
   }
 
-  .metric-card:last-child {
-    border-right: none;
-    padding-right: 0;
+  .metric-card:hover {
+    border-color: rgba(200, 169, 126, 0.3);
   }
 
-  .metric-card:not(:first-child) {
-    padding-left: 48px;
+  /* Hero card — only the number is larger; no permanent highlight */
+  .metric-card.is-hero:hover {
+    border-color: rgba(200, 169, 126, 0.4);
+    box-shadow: 0 0 40px rgba(200, 169, 126, 0.16);
   }
 
-  /* Accent top bar that grows on hover */
+  /* Accent top bar slides in on hover */
   .metric-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 2px;
     background: var(--accent);
     transform: scaleX(0);
@@ -1237,86 +1255,65 @@
   /* Number */
   .metric-number {
     font-family: var(--font-display);
-    font-size: clamp(64px, 5.5vw, 88px);
-    font-weight: 300;
+    font-size: 56px;
+    font-weight: 600;
     line-height: 1;
     letter-spacing: -0.03em;
     color: var(--accent);
     margin-bottom: 20px;
     display: flex;
     align-items: flex-start;
-    gap: 2px;
+    gap: 3px;
+  }
+
+  /* Hero metric number — larger to anchor visual hierarchy */
+  .metric-card.is-hero .metric-number {
+    font-size: 72px;
   }
 
   .metric-number .suffix {
-    font-size: 0.45em;
-    font-weight: 300;
+    font-size: 0.44em;
+    font-weight: 500;
     color: var(--accent);
-    opacity: 0.65;
-    margin-top: 0.18em; /* align to cap-height */
+    opacity: 0.7;
+    margin-top: 0.14em;
     letter-spacing: 0;
   }
 
-  /* Thin rule between number and label */
-  .metric-rule {
-    width: 32px;
-    height: 1px;
-    background: var(--border);
-    margin-bottom: 20px;
-    transition: width 0.35s ease, background 0.35s ease;
-  }
-
-  .metric-card:hover .metric-rule {
-    width: 48px;
-    background: var(--accent);
-  }
-
   .metric-label {
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 700;
     color: var(--text);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    line-height: 1.3;
   }
 
   .metric-context {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--muted);
-    letter-spacing: 0.02em;
-    line-height: 1.6;
+    line-height: 1.65;
+    margin-top: auto; /* pin to bottom so all cards align */
   }
 
   @media (max-width: 1024px) {
-    .metrics-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .metric-card {
-      padding: 40px 40px 40px 0;
-      border-right: none;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .metric-card:nth-child(odd) {
-      border-right: 1px solid var(--border);
-    }
-
-    .metric-card:not(:first-child) {
-      padding-left: 0;
-    }
-
-    .metric-card:nth-child(even) {
-      padding-left: 40px;
-    }
-
-    .metric-card:nth-last-child(-n+2) {
-      border-bottom: none;
+    .metrics {
+      padding: 100px 60px;
     }
   }
 
   @media (max-width: 768px) {
     .metrics {
       padding: 80px 40px;
+    }
+
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .metric-card.is-hero .metric-number {
+      font-size: 60px;
     }
   }
 
@@ -1327,18 +1324,11 @@
 
     .metrics-grid {
       grid-template-columns: 1fr;
+      gap: 12px;
     }
 
-    .metric-card,
-    .metric-card:nth-child(odd),
-    .metric-card:nth-child(even) {
-      padding: 40px 0;
-      border-right: none;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .metric-card:last-child {
-      border-bottom: none;
+    .metric-card.is-hero .metric-number {
+      font-size: 56px;
     }
   }
 
@@ -1350,126 +1340,40 @@
   }
 
   .about-inner {
-    display: grid;
-    grid-template-columns: 5fr 7fr;
-    gap: 0;
-    align-items: start;
+    max-width: 640px;
+    margin: 0 auto;
   }
 
-  /* ── Photo column ── */
-  .about-photo {
-    position: relative;
-    border-right: 1px solid var(--border);
-    padding-right: 72px;
-  }
-
-  .about-photo-frame {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .about-photo-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-    opacity: 0.92;
-    transition: opacity 0.4s;
-  }
-
-  .about-photo-frame:hover img {
-    opacity: 1;
-  }
-
-  /* Placeholder shown when no img is present */
-  .about-photo-placeholder {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    color: var(--border);
-  }
-
-  .about-photo-placeholder span {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    opacity: 0.4;
-  }
-
-  /* Gold corner accent on the frame */
-  .about-photo-frame::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 2px;
-    background: var(--accent);
-  }
-
-  .about-photo-caption {
-    margin-top: 20px;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    text-transform: uppercase;
-    opacity: 0.6;
-  }
-
-  /* ── Content column ── */
-  .about-content {
-    padding-left: 72px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .about-content .section-eyebrow {
-    margin-bottom: 40px;
+  .about-inner .section-eyebrow {
+    margin-bottom: 32px;
   }
 
   .about-headline {
     font-family: var(--font-display);
-    font-size: clamp(32px, 3.5vw, 48px);
-    font-weight: 300;
-    font-style: italic;
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.02em;
     color: var(--text);
+    margin-bottom: 32px;
+  }
+
+  /* Bio block with left gold accent border */
+  .about-bio {
+    border-left: 2px solid var(--accent);
+    padding-left: 28px;
     margin-bottom: 48px;
   }
 
-  /* Bio block with left gold border */
-  .about-bio {
-    border-left: 2px solid var(--accent);
-    padding-left: 32px;
-    margin-bottom: 56px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
   .about-bio p {
-    font-size: 15px;
+    font-size: 16px;
     color: var(--muted);
     line-height: 1.85;
-    letter-spacing: 0.01em;
   }
 
   .about-bio p strong {
     color: var(--text);
-    font-weight: 500;
+    font-weight: 600;
   }
 
   /* CTA row */
@@ -1480,24 +1384,20 @@
   }
 
   .about-cta-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
-    letter-spacing: 0.1em;
     color: var(--accent);
     text-decoration: none;
-    text-transform: uppercase;
-    transition: gap 0.2s;
+    text-underline-offset: 4px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+    text-decoration: underline;
+    text-decoration-color: transparent;
   }
 
-  .about-cta-link::after {
-    content: '→';
-    font-size: 15px;
+  .about-cta-link:hover {
+    color: #D4B896;
+    text-decoration-color: currentColor;
   }
-
-  .about-cta-link:hover { gap: 16px; }
 
   .about-cta-divider {
     width: 1px;
@@ -1523,40 +1423,11 @@
     border-radius: 50%;
     background: #4CAF82;
     box-shadow: 0 0 6px rgba(76, 175, 130, 0.5);
-  }
-
-  @media (max-width: 1024px) {
-    .about-inner {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .about-photo { padding-right: 48px; }
-    .about-content { padding-left: 48px; }
+    flex-shrink: 0;
   }
 
   @media (max-width: 768px) {
     .about-preview { padding: 80px 40px; }
-
-    .about-inner {
-      grid-template-columns: 1fr;
-      gap: 56px;
-    }
-
-    .about-photo {
-      border-right: none;
-      border-bottom: 1px solid var(--border);
-      padding-right: 0;
-      padding-bottom: 56px;
-      max-width: 360px;
-    }
-
-    .about-content { padding-left: 0; }
-  }
-
-  @media (max-width: 480px) {
-    .about-preview { padding: 64px 24px; }
-
-    .about-bio { padding-left: 24px; }
 
     .about-cta-row {
       flex-direction: column;
@@ -1567,11 +1438,16 @@
     .about-cta-divider { display: none; }
   }
 
+  @media (max-width: 480px) {
+    .about-preview { padding: 64px 24px; }
+    .about-bio { padding-left: 20px; }
+  }
+
   /* ── CTA / CONTACT ── */
   .cta-section {
     background: var(--surface);
     border-top: 1px solid var(--border);
-    padding: 160px 80px;
+    padding: 140px 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1589,7 +1465,7 @@
     transform: translate(-50%, -50%);
     width: 800px;
     height: 400px;
-    background: radial-gradient(ellipse, rgba(200, 169, 126, 0.05) 0%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(200, 169, 126, 0.06) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -1599,7 +1475,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 720px;
+    max-width: 600px;
+    width: 100%;
   }
 
   .cta-eyebrow {
@@ -1626,140 +1503,87 @@
 
   .cta-headline {
     font-family: var(--font-display);
-    font-size: clamp(56px, 7vw, 96px);
-    font-weight: 300;
-    line-height: 1.0;
-    letter-spacing: -0.03em;
+    font-size: clamp(40px, 5vw, 72px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
     color: var(--text);
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   .cta-sub {
-    font-size: 16px;
+    font-size: 18px;
     color: var(--muted);
     line-height: 1.7;
-    max-width: 480px;
-    margin-bottom: 56px;
-    letter-spacing: 0.01em;
+    max-width: 460px;
+    margin-bottom: 52px;
   }
 
   /* Primary CTA button */
   .cta-btn {
-    position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
     background: var(--accent);
     color: var(--bg);
-    padding: 20px 56px;
+    padding: 18px 48px;
     font-family: var(--font-body);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
     text-decoration: none;
-    border-radius: 2px;
-    margin-bottom: 48px;
-    transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, gap 0.2s ease;
-    overflow: hidden;
-  }
-
-  /* Shimmer sweep on hover */
-  .cta-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-    transition: left 0.5s ease;
-    pointer-events: none;
+    border-radius: 4px;
+    margin-bottom: 52px;
+    box-shadow: 0 4px 12px rgba(200, 169, 126, 0.30);
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+    cursor: pointer;
   }
 
   .cta-btn:hover {
-    background: var(--bg);
-    color: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent), 0 8px 32px rgba(200, 169, 126, 0.15);
-    gap: 20px;
+    background: #D4B896;
+    box-shadow: 0 8px 20px rgba(200, 169, 126, 0.50);
   }
 
-  .cta-btn:hover::before {
-    left: 160%;
+  .cta-btn:active {
+    transform: scale(0.98);
   }
 
-  .cta-btn-arrow {
-    font-size: 16px;
-    transition: transform 0.2s ease;
-  }
-
-  .cta-btn:hover .cta-btn-arrow {
-    transform: translateX(4px);
-  }
-
-  /* Secondary links row */
+  /* Secondary icon links */
   .cta-links {
     display: flex;
     align-items: center;
-    gap: 0;
+    gap: 32px;
   }
 
   .cta-link {
     display: inline-flex;
+    flex-direction: column;
     align-items: center;
     gap: 8px;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.08em;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
     color: var(--muted);
     text-decoration: none;
     text-transform: uppercase;
-    padding: 12px 28px;
-    border: 1px solid var(--border);
-    transition: color 0.2s, border-color 0.2s;
-  }
-
-  .cta-link:first-child {
-    border-radius: 2px 0 0 2px;
-    border-right: none;
-  }
-
-  .cta-link:last-child {
-    border-radius: 0 2px 2px 0;
-  }
-
-  .cta-link:only-child {
-    border-radius: 2px;
-    border-right: 1px solid var(--border);
+    transition: color 0.2s ease;
   }
 
   .cta-link:hover {
     color: var(--accent);
-    border-color: rgba(200, 169, 126, 0.4);
-    z-index: 1;
-    position: relative;
   }
 
   .cta-link svg {
-    width: 14px;
-    height: 14px;
+    width: 24px;
+    height: 24px;
     fill: currentColor;
     flex-shrink: 0;
   }
 
-  /* Divider between links */
-  .cta-link + .cta-link {
-    border-left: 1px solid var(--border);
-  }
-
   @media (max-width: 768px) {
-    .cta-section { padding: 120px 40px; }
-
-    .cta-headline { font-size: clamp(48px, 12vw, 72px); }
-
-    .cta-sub { margin-bottom: 40px; }
-
-    .cta-btn { padding: 18px 40px; }
+    .cta-section { padding: 100px 40px; }
+    .cta-sub { font-size: 16px; margin-bottom: 40px; }
+    .cta-btn { padding: 18px 40px; font-size: 15px; }
   }
 
   @media (max-width: 480px) {
@@ -1768,214 +1592,116 @@
     .cta-btn {
       width: 100%;
       justify-content: center;
-      padding: 18px 32px;
     }
 
-    .cta-links {
-      flex-direction: column;
-      width: 100%;
-      gap: 0;
-    }
-
-    .cta-link {
-      width: 100%;
-      justify-content: center;
-      border-radius: 0;
-      border-right: 1px solid var(--border) !important;
-      border-bottom: none;
-    }
-
-    .cta-link:first-child { border-radius: 2px 2px 0 0; }
-    .cta-link:last-child  { border-radius: 0 0 2px 2px; border-bottom: 1px solid var(--border) !important; }
+    .cta-links { gap: 24px; }
   }
 
   /* ── FOOTER ── */
   .site-footer {
     background: var(--bg);
     border-top: 1px solid var(--border);
-    padding: 0 80px;
+    padding: 48px 80px;
   }
 
-  /* Top bar: 3 columns */
-  .footer-main {
+  .footer-row {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
     align-items: center;
     gap: 40px;
-    padding: 40px 0;
-    border-bottom: 1px solid var(--border);
   }
 
-  /* Left — wordmark + tagline */
-  .footer-brand {
+  /* ── LEFT: legal ── */
+  .footer-legal {
+    flex-shrink: 0;
+  }
+
+  .footer-legal p {
+    font-size: 12px;
+    color: #666666;
+    line-height: 1.6;
+  }
+
+  /* ── CENTER: positioning statement ── */
+  .footer-center {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-  }
-
-  .footer-logo {
-    font-family: var(--font-body);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    color: var(--text);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-
-  .footer-logo:hover { color: var(--accent); }
-
-  .footer-tagline {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-  }
-
-  /* Center — nav links */
-  .footer-nav {
-    display: flex;
     align-items: center;
-    gap: 32px;
-    list-style: none;
+    text-align: center;
+    gap: 8px;
   }
 
-  .footer-nav a {
-    font-size: 12px;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.06em;
+  .footer-exploring-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    transition: color 0.2s;
+    color: var(--muted);
     white-space: nowrap;
   }
 
-  .footer-nav a:hover { color: var(--accent); }
+  .footer-statement {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.65;
+  }
 
-  /* Right — social icons */
-  .footer-social {
+  /* ── RIGHT: minimal contact ── */
+  .footer-contact {
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 20px;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-self: end;
+    gap: 10px;
   }
 
-  .footer-social-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s, border-color 0.2s;
-  }
-
-  .footer-social-link:hover {
+  .footer-contact-link {
+    font-size: 14px;
+    font-weight: 500;
     color: var(--accent);
-    border-color: rgba(200, 169, 126, 0.35);
+    text-decoration: none;
+    text-underline-offset: 3px;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
   }
 
-  .footer-social-link svg {
-    width: 14px;
-    height: 14px;
-    fill: currentColor;
+  .footer-contact-link:hover {
+    color: #D4B896;
+    text-decoration-color: currentColor;
   }
 
-  /* Bottom bar: copyright + back to top */
-  .footer-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 0;
-  }
-
-  .footer-copy {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-  }
-
-  .footer-copy a {
+  .footer-email {
+    font-size: 12px;
     color: var(--muted);
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color 0.2s ease;
   }
 
-  .footer-copy a:hover { color: var(--accent); }
-
-  .footer-back-top {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.2s, gap 0.2s;
-  }
-
-  .footer-back-top:hover {
-    color: var(--accent);
-    gap: 12px;
-  }
-
-  .footer-back-top svg {
-    width: 12px;
-    height: 12px;
-    fill: currentColor;
-    transition: transform 0.2s;
-  }
-
-  .footer-back-top:hover svg { transform: translateY(-2px); }
+  .footer-email:hover { color: var(--accent); }
 
   @media (max-width: 1024px) {
-    .site-footer { padding: 0 40px; }
-
-    .footer-nav { gap: 24px; }
+    .site-footer { padding: 48px 40px; }
+    .footer-row  { gap: 24px; }
   }
 
   @media (max-width: 768px) {
-    .site-footer { padding: 0 40px; }
+    .site-footer { padding: 48px 40px; }
 
-    .footer-main {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 32px;
-      padding: 40px 0;
-    }
-
-    /* Brand top-left, social top-right */
-    .footer-brand { grid-column: 1; grid-row: 1; }
-    .footer-social { grid-column: 2; grid-row: 1; }
-
-    /* Nav spans full width below */
-    .footer-nav {
-      grid-column: 1 / -1;
-      grid-row: 2;
-      flex-wrap: wrap;
-      gap: 16px 24px;
-      justify-content: flex-start;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .site-footer { padding: 0 24px; }
-
-    .footer-main {
+    .footer-row {
       grid-template-columns: 1fr;
-      grid-template-rows: auto auto auto;
+      justify-items: center;
+      text-align: center;
       gap: 28px;
     }
 
-    .footer-brand { grid-column: 1; grid-row: 1; }
-    .footer-social { grid-column: 1; grid-row: 2; justify-content: flex-start; }
-    .footer-nav   { grid-column: 1; grid-row: 3; }
+    .footer-legal  { text-align: center; }
+    .footer-contact { align-items: center; justify-self: center; }
+  }
 
-    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
+  @media (max-width: 480px) {
+    .site-footer { padding: 40px 24px; }
+    .footer-statement { max-width: 100%; }
   }
 </style>
 </head>
@@ -2116,7 +1842,7 @@
 
       <div class="work-card-content">
 
-        <div class="work-card-badge">Case Study</div>
+        <span class="work-card-badge">Case Study</span>
 
         <h3 class="work-card-title">DiGiSense</h3>
         <p class="work-card-subtitle">Connected Vehicle Telematics Platform</p>
@@ -2124,8 +1850,8 @@
         <div class="work-card-divider"></div>
 
         <p class="work-card-description">
-          Redesigned Mahindra's IoT telematics platform to serve 100,000+ connected
-          vehicles across rural and commercial fleets. Transformed complex real-time
+          Redesigned Mahindra's IoT telematics platform serving 100,000+ connected
+          vehicles across rural and commercial fleets — turning fragmented real-time
           data into actionable insights — reducing operator decision time and driving
           measurable gains in fleet uptime and fuel efficiency.
         </p>
@@ -2145,7 +1871,7 @@
           </div>
         </div>
 
-        <span class="work-card-link">Read Case Study</span>
+        <span class="work-card-link">Read Case Study →</span>
 
       </div>
 
@@ -2159,7 +1885,7 @@
     <div class="section-header">
       <div class="section-eyebrow">
         <span>Design Process</span>
-        <h2 class="section-title">AI-Augmented<br>Design Process</h2>
+        <h2 class="section-title">AI-Augmented Design Process</h2>
       </div>
     </div>
 
@@ -2167,45 +1893,37 @@
 
       <!-- Step 1 -->
       <div class="workflow-step">
-        <div class="step-number">01</div>
-        <p class="step-ai-tag">AI Data Mining</p>
-        <h3 class="step-title">Research &<br>Synthesis</h3>
-        <div class="step-divider"></div>
-        <p class="step-desc">AI surfaces hidden patterns across user research, analytics, and competitive signals.</p>
+        <div class="step-number">1</div>
+        <h3 class="step-title">Research &amp; Synthesis</h3>
+        <p class="step-desc">AI-powered data mining and pattern discovery across user feedback</p>
       </div>
 
       <!-- Step 2 -->
       <div class="workflow-step">
-        <div class="step-number">02</div>
-        <p class="step-ai-tag">AI Insight Generation</p>
-        <h3 class="step-title">Strategic<br>Thinking</h3>
-        <div class="step-divider"></div>
-        <p class="step-desc">Opportunity mapping and hypothesis framing accelerated by AI-generated insight clusters.</p>
+        <div class="step-number">2</div>
+        <h3 class="step-title">Strategic Thinking</h3>
+        <p class="step-desc">AI insight generation to uncover hidden user needs and market gaps</p>
       </div>
 
       <!-- Step 3 -->
       <div class="workflow-step">
-        <div class="step-number">03</div>
-        <p class="step-ai-tag">AI Prototyping Assist</p>
-        <h3 class="step-title">Design &<br>Iteration</h3>
-        <div class="step-divider"></div>
-        <p class="step-desc">Rapid concept generation and variant exploration with AI as a co-creative partner.</p>
+        <div class="step-number">3</div>
+        <h3 class="step-title">Design &amp; Iteration</h3>
+        <p class="step-desc">AI-assisted prototyping and rapid testing of design variations</p>
       </div>
 
       <!-- Step 4 -->
       <div class="workflow-step">
-        <div class="step-number">04</div>
-        <p class="step-ai-tag">AI Testing Automation</p>
-        <h3 class="step-title">Validation &<br>Launch</h3>
-        <div class="step-divider"></div>
-        <p class="step-desc">Automated usability analysis and regression testing to ship with confidence.</p>
+        <div class="step-number">4</div>
+        <h3 class="step-title">Validation &amp; Launch</h3>
+        <p class="step-desc">AI-driven testing automation and performance monitoring</p>
       </div>
 
     </div>
 
     <div class="workflow-cta">
       <p class="workflow-cta-label">A process built for complexity, speed, and precision</p>
-      <a href="/ai-workflow" class="workflow-cta-link">Explore Full Process</a>
+      <a href="/ai-workflow" class="workflow-cta-link">Explore Full Process →</a>
     </div>
 
   </section>
@@ -2222,32 +1940,29 @@
 
     <div class="metrics-grid">
 
-      <div class="metric-card">
+      <!-- Hero metric — anchors visual hierarchy -->
+      <div class="metric-card is-hero">
         <div class="metric-number">25<span class="suffix">+</span></div>
-        <div class="metric-rule"></div>
         <p class="metric-label">Projects Led</p>
-        <p class="metric-context">End-to-end ownership across enterprise, consumer, and AI products</p>
+        <p class="metric-context">Across B2B SaaS, Fintech, Cybersecurity, Life Sciences, IoT</p>
       </div>
 
       <div class="metric-card">
         <div class="metric-number">15<span class="suffix">+</span></div>
-        <div class="metric-rule"></div>
-        <p class="metric-label">Cross-Functional Teams</p>
-        <p class="metric-context">Product, engineering, and business stakeholders aligned under unified design vision</p>
+        <p class="metric-label">Cross-Functional Teams Managed</p>
+        <p class="metric-context">Average team size: 8+ members</p>
       </div>
 
       <div class="metric-card">
-        <div class="metric-number">4<span class="suffix"></span></div>
-        <div class="metric-rule"></div>
+        <div class="metric-number">4</div>
         <p class="metric-label">Design Systems Built</p>
-        <p class="metric-context">Scalable component libraries shipped across SaaS, fintech, and IoT platforms</p>
+        <p class="metric-context">Tokens, components, documentation, accessibility audits</p>
       </div>
 
       <div class="metric-card">
         <div class="metric-number">35<span class="suffix">%</span></div>
-        <div class="metric-rule"></div>
-        <p class="metric-label">User Engagement Lift</p>
-        <p class="metric-context">Average uplift in engagement metrics post-redesign, across measured projects</p>
+        <p class="metric-label">Avg User Engagement Lift</p>
+        <p class="metric-context">Measured across product launches and redesigns</p>
       </div>
 
     </div>
@@ -2259,56 +1974,26 @@
 
     <div class="about-inner">
 
-      <!-- Photo -->
-      <div class="about-photo">
-        <div class="about-photo-frame">
-          <!-- Replace src with your photo path e.g. src="ameya.jpg" -->
-          <div class="about-photo-placeholder">
-            <span>Photo</span>
-          </div>
-        </div>
-        <p class="about-photo-caption">Ameya Kulkarni — Lead UX Designer</p>
+      <div class="section-eyebrow">
+        <span>About Me</span>
       </div>
 
-      <!-- Content -->
-      <div class="about-content">
+      <h2 class="about-headline">A systems thinker who designs for impact</h2>
 
-        <div class="section-eyebrow">
-          <span>About Me</span>
-        </div>
+      <div class="about-bio">
+        <p>
+          With 9.5 years across enterprise B2B SaaS, fintech, and emerging AI workflows,
+          I specialize in UX strategy and design systems that drive measurable outcomes.
+          I've shipped <strong>4+ design systems</strong>, led cross-functional teams of
+          <strong>8+</strong>, and consistently delivered <strong>35%+ engagement lifts</strong>
+          through strategic design decisions.
+        </p>
+      </div>
 
-        <h2 class="about-headline">
-          I design the systems<br>behind the screens.
-        </h2>
-
-        <div class="about-bio">
-          <p>
-            I've spent 9.5 years figuring out why people struggle with software —
-            and building the solutions that fix it. From redesigning telematics dashboards
-            for <strong>100,000+ connected vehicles</strong> in rural India, to shipping
-            AI-integrated platforms for enterprise teams across four continents, I'm drawn
-            to the hard problems where design meets real stakes.
-          </p>
-          <p>
-            I don't just design screens. I design the logic behind them — the flows,
-            the systems, the component libraries, and the processes that let teams
-            move fast without breaking things. My work spans B2B SaaS, fintech,
-            life sciences, cybersecurity, and IoT. The common thread is always the same:
-            <strong>understand deeply, design decisively, measure honestly.</strong>
-          </p>
-          <p>
-            Right now, I'm exploring how AI reshapes the way designers think, research,
-            and ship. It's the most interesting shift I've seen in a decade of doing this —
-            and I'm building my practice around it.
-          </p>
-        </div>
-
-        <div class="about-cta-row">
-          <a href="/about" class="about-cta-link">Read Full Story</a>
-          <div class="about-cta-divider"></div>
-          <span class="about-availability">Available to join your company</span>
-        </div>
-
+      <div class="about-cta-row">
+        <a href="/about" class="about-cta-link">Read Full Story →</a>
+        <div class="about-cta-divider"></div>
+        <span class="about-availability">Available to join your company</span>
       </div>
 
     </div>
@@ -2322,40 +2007,31 @@
 
       <p class="cta-eyebrow">Get in Touch</p>
 
-      <h2 class="cta-headline">Let's build<br>something great.</h2>
+      <h2 class="cta-headline">Let's build something great.</h2>
 
-      <p class="cta-sub">
-        I'm open to lead, principal, and AI-focused UX roles —
-        and the occasional project that's genuinely hard to say no to.
-      </p>
+      <p class="cta-sub">I'm open to lead, principal, and AI-focused UX roles.</p>
 
-      <a href="/contact" class="cta-btn">
-        Get in Touch
-        <span class="cta-btn-arrow">→</span>
-      </a>
+      <a href="/contact" class="cta-btn">Schedule a Conversation →</a>
 
       <div class="cta-links">
 
         <a href="mailto:ameya@example.com" class="cta-link" aria-label="Send email">
-          <!-- Email icon -->
-          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4zm2 0l6 5 6-5H4zm0 2.236V16h12V6.236l-6 5-6-5z"/>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 2-8 5-8-5h16zm0 12H4V8.236l8 5 8-5V18z"/>
           </svg>
           Email
         </a>
 
         <a href="https://linkedin.com/in/ameyakulkarni" class="cta-link" target="_blank" rel="noopener" aria-label="LinkedIn profile">
-          <!-- LinkedIn icon -->
-          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M16.338 16.338H13.67V12.16c0-1-.02-2.278-1.388-2.278-1.39 0-1.601 1.084-1.601 2.205v4.251H8.013V7.498h2.561v1.17h.037c.356-.674 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.965zM5.005 6.328a1.493 1.493 0 110-2.986 1.493 1.493 0 010 2.986zm1.337 10.01H3.666V7.498h2.676v8.84zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34C18.408 19 19 18.418 19 17.701V2.298C19 1.581 18.408 1 17.668 1z"/>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M19.959 3H4.041C3.468 3 3 3.468 3 4.041v15.918C3 20.532 3.468 21 4.041 21h15.918C20.532 21 21 20.532 21 19.959V4.041C21 3.468 20.532 3 19.959 3zM8.877 17.5H6.386V9.82h2.491V17.5zM7.631 8.773a1.444 1.444 0 110-2.888 1.444 1.444 0 010 2.888zM17.5 17.5h-2.49v-3.778c0-.9-.016-2.059-1.254-2.059-1.255 0-1.448.981-1.448 1.994V17.5h-2.49V9.82h2.39v1.061h.034c.332-.63 1.144-1.294 2.354-1.294 2.518 0 2.982 1.657 2.982 3.812V17.5z"/>
           </svg>
           LinkedIn
         </a>
 
         <a href="https://twitter.com/ameyakulkarni" class="cta-link" target="_blank" rel="noopener" aria-label="Twitter / X profile">
-          <!-- X (Twitter) icon -->
-          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M15.751 2h2.547l-5.564 6.36L19 18h-5.125l-4.014-5.25L5.009 18H2.46l5.95-6.8L1 2h5.25l3.627 4.796L15.751 2zm-.894 14.39h1.411L5.222 3.446H3.706l11.15 12.945z"/>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M18.244 2h3.308l-7.227 8.26L23 22h-6.655l-4.818-6.301L6.01 22H2.7l7.73-8.835L1 2h6.833l4.337 5.684L18.244 2zm-1.161 18h1.833L6.989 4H5.022L17.083 20z"/>
           </svg>
           Twitter
         </a>
@@ -2369,58 +2045,25 @@
   <!-- FOOTER -->
   <footer class="site-footer">
 
-    <div class="footer-main">
+    <div class="footer-row">
 
-      <!-- Brand -->
-      <div class="footer-brand">
-        <a href="index.html" class="footer-logo">Ameya Kulkarni</a>
-        <span class="footer-tagline">Lead UX Designer · 9.5 Years</span>
+      <!-- LEFT: Legal -->
+      <div class="footer-legal">
+        <p>© 2026 Ameya Kulkarni</p>
       </div>
 
-      <!-- Nav -->
-      <ul class="footer-nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#ai-workflow">AI Workflow</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-
-      <!-- Social -->
-      <div class="footer-social">
-
-        <a href="https://linkedin.com/in/ameyakulkarni" class="footer-social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M16.338 16.338H13.67V12.16c0-1-.02-2.278-1.388-2.278-1.39 0-1.601 1.084-1.601 2.205v4.251H8.013V7.498h2.561v1.17h.037c.356-.674 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.965zM5.005 6.328a1.493 1.493 0 110-2.986 1.493 1.493 0 010 2.986zm1.337 10.01H3.666V7.498h2.676v8.84zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34C18.408 19 19 18.418 19 17.701V2.298C19 1.581 18.408 1 17.668 1z"/>
-          </svg>
-        </a>
-
-        <a href="https://twitter.com/ameyakulkarni" class="footer-social-link" target="_blank" rel="noopener" aria-label="Twitter / X">
-          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M15.751 2h2.547l-5.564 6.36L19 18h-5.125l-4.014-5.25L5.009 18H2.46l5.95-6.8L1 2h5.25l3.627 4.796L15.751 2zm-.894 14.39h1.411L5.222 3.446H3.706l11.15 12.945z"/>
-          </svg>
-        </a>
-
-        <a href="mailto:ameya@example.com" class="footer-social-link" aria-label="Email">
-          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4zm2 0l6 5 6-5H4zm0 2.236V16h12V6.236l-6 5-6-5z"/>
-          </svg>
-        </a>
-
+      <!-- CENTER: Positioning statement -->
+      <div class="footer-center">
+        <span class="footer-exploring-label">Currently Exploring</span>
+        <p class="footer-statement">AI-augmented design systems for distributed teams.<br>Obsessed with the intersection of strategy, AI, and human-centered design.</p>
       </div>
 
-    </div>
+      <!-- RIGHT: Minimal contact -->
+      <div class="footer-contact">
+        <a href="#contact" class="footer-contact-link">Get in touch</a>
+        <a href="mailto:ameya@example.com" class="footer-email">ameya@example.com</a>
+      </div>
 
-    <div class="footer-bottom">
-      <p class="footer-copy">
-        © 2026 <a href="index.html">Ameya Kulkarni</a>. All rights reserved.
-      </p>
-      <a href="#" class="footer-back-top" aria-label="Back to top">
-        Back to top
-        <svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M6 1l5 5H7v5H5V6H1l5-5z"/>
-        </svg>
-      </a>
     </div>
 
   </footer>
@@ -2459,6 +2102,55 @@
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') closeMenu();
       });
+    })();
+
+    // ── AI WORKFLOW STEP SEQUENCER ──
+    (function () {
+      const section = document.querySelector('.ai-workflow');
+      if (!section) return;
+
+      const steps = Array.from(section.querySelectorAll('.workflow-step'));
+      if (!steps.length) return;
+
+      let current = 0;
+      let timer = null;
+
+      function activate(index) {
+        steps.forEach(function (step, i) {
+          step.classList.toggle('is-active',   i === index);
+          step.classList.toggle('is-inactive', i !== index);
+        });
+        current = index;
+      }
+
+      function advance() {
+        activate((current + 1) % steps.length);
+      }
+
+      function startTimer() {
+        clearInterval(timer);
+        timer = setInterval(advance, 1400);
+      }
+
+      function stopTimer() {
+        clearInterval(timer);
+      }
+
+      // Pause while the user's mouse is anywhere in the section
+      section.addEventListener('mouseenter', stopTimer);
+      section.addEventListener('mouseleave', startTimer);
+
+      // Click a step to jump to it, then resume auto-advance
+      steps.forEach(function (step, i) {
+        step.addEventListener('click', function () {
+          activate(i);
+          startTimer();
+        });
+      });
+
+      // Kick off
+      activate(0);
+      startTimer();
     })();
   </script>
 
