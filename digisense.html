@@ -1155,7 +1155,11 @@
     .research-stat:nth-last-child(-n+2) { border-bottom: none; }
     .research-stat-number { font-size: 36px; }
     /* Make table horizontally scrollable instead of breaking layout */
-    .methods-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .methods-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(200,169,126,0.2) transparent; }
+    .methods-table::-webkit-scrollbar { height: 4px; }
+    .methods-table::-webkit-scrollbar-track { background: transparent; }
+    .methods-table::-webkit-scrollbar-thumb { background: rgba(200,169,126,0.2); border-radius: 2px; }
+    .methods-table::-webkit-scrollbar-thumb:hover { background: rgba(200,169,126,0.4); }
     .surprise-callout { padding: 32px; }
 
     /* Insights */

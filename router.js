@@ -48,21 +48,20 @@
       return;
     }
 
-    // Transition from case to home
     caseView.classList.add('view-exit');
-    
+
     setTimeout(() => {
       caseView.classList.add('hidden');
       caseView.classList.remove('view-exit');
-      caseView.innerHTML = ''; // Clear content
-      
+      caseView.innerHTML = '';
+
       homeView.classList.remove('hidden');
       homeView.classList.add('view-enter');
-      
+
       requestAnimationFrame(() => {
         homeView.classList.add('view-enter-active');
         currentView = 'home';
-        
+
         setTimeout(() => {
           homeView.classList.remove('view-enter', 'view-enter-active');
           if (anchor) scrollToAnchor(anchor);
@@ -103,8 +102,8 @@
         injectedStyles.add(styleId);
       });
 
-      // 3. Clean fetched content: Remove nav, footer, and scripts already in shell
-      const redundant = doc.querySelectorAll('nav, footer, .mobile-menu, script[src*="components.js"]');
+      // 3. Clean fetched content: Remove nav, footer, modal (lives in shell), and scripts already in shell
+      const redundant = doc.querySelectorAll('nav, footer, .mobile-menu, #artifact-modal, script[src*="components.js"]');
       redundant.forEach(el => el.remove());
 
       // 4. Prepare case view content
@@ -184,10 +183,7 @@
       });
     }
 
-    // 2. Artifact Modal Init (specific to pfsone.html)
-    initArtifactModal();
-    
-    // 3. Link hijacking - ensure links to index.html or home sections work via router
+    // 2. Link hijacking - ensure links to index.html or home sections work via router
     caseView.querySelectorAll('a').forEach(link => {
       const href = link.getAttribute('href');
       if (href === 'index.html' || href === '/') {
@@ -202,66 +198,67 @@
   }
 
   /**
-   * Specialized init for artifact modal in pfsone
+   * Artifact modal — event delegation, wired once at init.
+   * Reads DOM at call-time so references never go stale across navigations.
    */
-  function initArtifactModal() {
+  function openArtifactModal(flowId) {
+    const modal = document.getElementById('artifact-modal');
+    const flowDataEl = document.getElementById('flow-data');
+    if (!modal || !flowDataEl) return;
+
+    const data = JSON.parse(flowDataEl.textContent)[flowId];
+    if (!data) return;
+
+    document.getElementById('modal-image-label').textContent = data.label;
+    document.getElementById('modal-image-title').textContent = data.title;
+    document.getElementById('modal-title').textContent = data.title;
+    document.getElementById('modal-decision').textContent = data.decision;
+    document.getElementById('modal-annotations').innerHTML = data.annotations.map(a => `
+      <div class="annotation-item">
+        <div class="annotation-item-header">
+          <span class="annotation-badge">${a.num}</span>
+          <span class="annotation-label">${a.label}</span>
+        </div>
+        <p class="annotation-text">${a.text}</p>
+      </div>
+    `).join('');
+
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeArtifactModal() {
     const modal = document.getElementById('artifact-modal');
     if (!modal) return;
-
-    const flowDataEl = document.getElementById('flow-data');
-    if (!flowDataEl) return;
-
-    const flowData = JSON.parse(flowDataEl.textContent);
-    const modalClose = document.getElementById('modal-close');
-    const modalImageLabel = document.getElementById('modal-image-label');
-    const modalImageTitle = document.getElementById('modal-image-title');
-    const modalTitle = document.getElementById('modal-title');
-    const modalDecision = document.getElementById('modal-decision');
-    const modalAnnotations = document.getElementById('modal-annotations');
-
-    function openModal(flowId) {
-      const data = flowData[flowId];
-      if (!data) return;
-
-      modalImageLabel.textContent = data.label;
-      modalImageTitle.textContent = data.title;
-      modalTitle.textContent = data.title;
-      modalDecision.textContent = data.decision;
-
-      modalAnnotations.innerHTML = data.annotations.map(a => `
-        <div class="annotation-item">
-          <div class="annotation-item-header">
-            <span class="annotation-badge">${a.num}</span>
-            <span class="annotation-label">${a.label}</span>
-          </div>
-          <p class="annotation-text">${a.text}</p>
-        </div>
-      `).join('');
-
-      modal.classList.add('is-open');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      modal.classList.remove('is-open');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    caseView.querySelectorAll('.artifact-card').forEach(card => {
-      card.addEventListener('click', () => openModal(card.dataset.flow));
-      card.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(card.dataset.flow); }
-      });
-    });
-
-    if (modalClose) modalClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
-    });
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
   }
+
+  // Open — delegate to caseView (cards live inside it)
+  caseView.addEventListener('click', (e) => {
+    const card = e.target.closest('.artifact-card');
+    if (card) openArtifactModal(card.dataset.flow);
+  });
+
+  caseView.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const card = e.target.closest('.artifact-card');
+      if (card) { e.preventDefault(); openArtifactModal(card.dataset.flow); }
+    }
+  });
+
+  // Close — backdrop, × button, Escape
+  document.addEventListener('click', (e) => {
+    const modal = document.getElementById('artifact-modal');
+    if (!modal) return;
+    if (e.target === modal || e.target.closest('.artifact-modal-close')) closeArtifactModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeArtifactModal();
+  });
 
   /**
    * Scroll to Anchor smoothly

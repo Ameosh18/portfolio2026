@@ -18,6 +18,25 @@
     <div class="loading-spinner"></div>
   </div>
 
+  <!-- ARTIFACT MODAL — lives outside case-view so position:fixed works correctly -->
+  <div class="artifact-modal" id="artifact-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="artifact-modal-inner">
+      <div class="artifact-modal-image">
+        <span class="artifact-modal-image-label" id="modal-image-label"></span>
+        <div class="artifact-modal-image-placeholder">
+          <span id="modal-image-title"></span>
+          <p>Wireframe image — add PDF export here</p>
+        </div>
+      </div>
+      <div class="artifact-modal-annotations">
+        <button class="artifact-modal-close" id="modal-close" aria-label="Close">×</button>
+        <h3 class="artifact-modal-title" id="modal-title"></h3>
+        <p class="artifact-modal-decision" id="modal-decision"></p>
+        <div id="modal-annotations"></div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- NAV & MOBILE MENU injected by components.js -->
 
