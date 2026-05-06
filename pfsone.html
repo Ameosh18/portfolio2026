@@ -1092,7 +1092,19 @@
     flex-direction: column;
     gap: 20px;
     overflow-y: auto;
+    min-height: 0;
+    max-height: 90vh;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(200,169,126,0.2) transparent;
   }
+  .artifact-modal-annotations::-webkit-scrollbar { width: 4px; }
+  .artifact-modal-annotations::-webkit-scrollbar-track { background: transparent; }
+  .artifact-modal-annotations::-webkit-scrollbar-thumb {
+    background: rgba(200,169,126,0.2);
+    border-radius: 2px;
+  }
+  .artifact-modal-annotations::-webkit-scrollbar-thumb:hover { background: rgba(200,169,126,0.4); }
+  #modal-annotations { display: flex; flex-direction: column; gap: 8px; }
 
   .artifact-modal-title {
     font-family: var(--font-display);
