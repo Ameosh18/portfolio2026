@@ -7,7 +7,47 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script>(function(){var s=localStorage.getItem('theme');var p=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',s||p);})();</script>
 <style>
+
+:root {
+  --bg: #0A0A0A;
+  --surface: #111111;
+  --border: #1F1F1F;
+  --text: #FFFFFF;
+  --muted: #AAAAAA;
+  --accent: #C8A97E;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --nav-bg: rgba(10,10,10,0.92);
+  --mobile-menu-bg: rgba(10,10,10,0.97);
+  --nav-link-color: rgba(255,255,255,0.55);
+  --mobile-menu-divider: rgba(255,255,255,0.04);
+  --card-bg: #111111;
+  --dot-color: #1A1A1A;
+  --scrollbar-thumb: rgba(200,169,126,0.2);
+  --scrollbar-thumb-hover: rgba(200,169,126,0.4);
+  --noise-opacity: 0.4;
+}
+
+html[data-theme="light"] {
+  --bg: #F8F5EF;
+  --surface: #FFFFFF;
+  --border: #DDD8CF;
+  --text: #1A1A1A;
+  --muted: #595550;
+  --accent: #7A5C2E;
+  --nav-bg: rgba(248,245,239,0.92);
+  --mobile-menu-bg: rgba(248,245,239,0.97);
+  --nav-link-color: rgba(26,26,26,0.70);
+  --mobile-menu-divider: rgba(26,26,26,0.08);
+  --card-bg: #FFFFFF;
+  --dot-color: #DDD8CF;
+  --scrollbar-thumb: rgba(122,92,46,0.3);
+  --scrollbar-thumb-hover: rgba(122,92,46,0.5);
+  --noise-opacity: 0.15;
+}
 
 /* ── WORK PAGE ── */
 
