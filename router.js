@@ -141,7 +141,7 @@
     caseView.innerHTML = content;
     caseView.classList.remove('hidden');
     caseView.classList.add('view-enter');
-    
+
     // Scroll to top
     window.scrollTo(0, 0);
     
