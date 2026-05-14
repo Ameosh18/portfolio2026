@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script>if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');</script>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,8 +16,20 @@
     --text: #FFFFFF;
     --muted: #888888;
     --accent: #C8A97E;
+    --nav-bg: rgba(10,10,10,0.92);
+    --overlay-bg: rgba(10,10,10,0.97);
     --font-display: 'Cormorant Garamond', serif;
     --font-body: 'DM Sans', sans-serif;
+  }
+  [data-theme="light"] {
+    --bg: #F7F4F0;
+    --surface: #EDEAE5;
+    --border: #D4CFC8;
+    --text: #1A1A1A;
+    --muted: #5A5A5A;
+    --accent: #9B7A4D;
+    --nav-bg: rgba(247,244,240,0.92);
+    --overlay-bg: rgba(247,244,240,0.97);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

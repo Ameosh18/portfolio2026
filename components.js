@@ -19,11 +19,17 @@
       <li><a href="#about">About</a></li>
       <li><a href="#contact" class="cta">Let's Talk →</a></li>
     </ul>
-    <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <div class="nav-actions">
+      <button class="theme-toggle" aria-label="Toggle colour theme" id="theme-toggle">
+        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </nav>`;
 
   // ── MOBILE MENU HTML ──────────────────────────────────────────────────────
@@ -77,35 +83,39 @@
         position: fixed; top: 0; left: 0; right: 0;
         height: 88px; display: flex; align-items: center;
         justify-content: space-between; padding: 0 80px;
-        background: rgba(10,10,10,0.92);
+        background: var(--nav-bg, rgba(10,10,10,0.92));
         backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-        border-bottom: 1px solid #1F1F1F; z-index: 100;
+        border-bottom: 1px solid var(--border, #1F1F1F); z-index: 100;
+        transition: background 0.3s ease, border-color 0.3s ease;
       }
       #site-nav .nav-logo { display: flex; align-items: center; text-decoration: none; }
       #site-nav .nav-logo-img { height: 52px; width: auto; object-fit: contain; }
       #site-nav .nav-links { display: flex; align-items: center; gap: 0; list-style: none; }
       #site-nav .nav-links a {
-        display: inline-block; font-size: 14px; color: rgba(255,255,255,0.55);
+        display: inline-block; font-size: 14px; color: var(--muted, rgba(255,255,255,0.55));
         text-decoration: none; letter-spacing: 0.02em; padding: 4px 20px;
         position: relative; transition: color 0.2s;
       }
       #site-nav .nav-links a::after {
         content: ''; position: absolute; bottom: -1px; left: 20px; right: 20px;
-        height: 1px; background: #C8A97E; transform: scaleX(0);
+        height: 1px; background: var(--accent, #C8A97E); transform: scaleX(0);
         transform-origin: left; transition: transform 0.22s ease;
       }
-      #site-nav .nav-links a:hover, #site-nav .nav-links a.active { color: #fff; }
+      #site-nav .nav-links a:hover, #site-nav .nav-links a.active { color: var(--text, #fff); }
       #site-nav .nav-links a:hover::after, #site-nav .nav-links a.active::after { transform: scaleX(1); }
-      #site-nav .nav-links .cta { color: #C8A97E; opacity: 1; }
+      #site-nav .nav-links .cta { color: var(--accent, #C8A97E); opacity: 1; }
       #site-nav .nav-links .cta::after { display: none; }
-      #site-nav .nav-links .cta:hover { color: #C8A97E; opacity: 0.8; }
+      #site-nav .nav-links .cta:hover { opacity: 0.8; }
+      #site-nav .nav-actions {
+        display: flex; align-items: center; gap: 12px;
+      }
       #site-nav .nav-hamburger {
         display: none; flex-direction: column; justify-content: center;
         align-items: center; gap: 5px; width: 44px; height: 44px;
         background: none; border: none; cursor: pointer; padding: 0; flex-shrink: 0;
       }
       #site-nav .nav-hamburger span {
-        display: block; height: 1.5px; background: #fff; border-radius: 1px;
+        display: block; height: 1.5px; background: var(--text, #fff); border-radius: 1px;
         transform-origin: center;
         transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.2s ease, width 0.4s cubic-bezier(0.16,1,0.3,1);
       }
@@ -118,11 +128,11 @@
 
       /* ── SHARED MOBILE MENU ── */
       .mobile-menu {
-        position: fixed; inset: 0; background: rgba(10,10,10,0.97);
+        position: fixed; inset: 0; background: var(--overlay-bg, rgba(10,10,10,0.97));
         backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
         z-index: 200; display: flex; flex-direction: column;
         justify-content: center; padding: 96px 40px 48px;
-        opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        opacity: 0; pointer-events: none; transition: opacity 0.3s ease, background 0.3s ease;
       }
       .mobile-menu.is-open { opacity: 1; pointer-events: all; }
       
@@ -134,7 +144,7 @@
       .mobile-menu-links li:last-child { border-bottom: none; }
       .mobile-menu-links a {
         display: flex; align-items: center; justify-content: space-between;
-        font-size: clamp(40px,10vw,56px); font-weight: 300; color: #fff;
+        font-size: clamp(40px,10vw,56px); font-weight: 300; color: var(--text, #fff);
         text-decoration: none; letter-spacing: -0.01em; line-height: 1; padding: 28px 0;
         transform: translateY(48px); opacity: 0;
         transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), opacity 0.5s ease, color 0.3s ease;
@@ -159,17 +169,17 @@
       .mobile-menu-footer-cta:hover { opacity: 0.75; }
 
       /* ── SHARED FOOTER ── */
-      .site-footer { background: #0A0A0A; border-top: 1px solid #1F1F1F; padding: 48px 80px; width: 100%; box-sizing: border-box; }
+      .site-footer { background: var(--bg, #0A0A0A); border-top: 1px solid var(--border, #1F1F1F); padding: 48px 80px; width: 100%; box-sizing: border-box; transition: background 0.3s ease, border-color 0.3s ease; }
       .footer-row { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; align-items: center; gap: 40px; }
       .footer-legal { flex-shrink: 0; }
-      .footer-legal p { font-size: 12px; color: #666666; line-height: 1.6; }
+      .footer-legal p { font-size: 12px; color: var(--muted, #666666); line-height: 1.6; }
       .footer-center { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; }
-      .footer-exploring-label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #888888; white-space: nowrap; }
-      .footer-statement { font-size: 14px; color: #FFFFFF; line-height: 1.65; }
+      .footer-exploring-label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted, #888888); white-space: nowrap; }
+      .footer-statement { font-size: 14px; color: var(--text, #FFFFFF); line-height: 1.65; }
       .footer-contact { display: flex; flex-direction: column; align-items: flex-end; justify-self: end; gap: 10px; }
       .footer-contact-link { font-size: 14px; font-weight: 500; color: #C8A97E; text-decoration: none; text-underline-offset: 3px; text-decoration: underline; text-decoration-color: transparent; transition: color 0.2s ease, text-decoration-color 0.2s ease; }
       .footer-contact-link:hover { color: #D4B896; text-decoration-color: currentColor; }
-      .footer-email { font-size: 12px; color: #888888; text-decoration: none; transition: color 0.2s ease; }
+      .footer-email { font-size: 12px; color: var(--muted, #888888); text-decoration: none; transition: color 0.2s ease; }
       .footer-email:hover { color: #C8A97E; }
 
       /* ── SPACING FIX: reduce gap before footer on case study pages ── */
@@ -186,6 +196,7 @@
         #site-nav { padding: 0 24px; }
         #site-nav .nav-links { display: none; }
         #site-nav .nav-hamburger { display: flex; }
+        #site-nav .nav-actions { gap: 8px; }
         .site-footer { padding: 48px 40px; }
         .footer-row { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 28px; }
         .footer-legal { text-align: center; }
@@ -238,6 +249,27 @@
       if (e.key === 'Escape') closeMenu();
     });
   }
+
+  // ── THEME TOGGLE ─────────────────────────────────────────────────────────────
+  (function () {
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') root.setAttribute('data-theme', 'light');
+
+    const btn = document.getElementById('theme-toggle');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const isLight = root.getAttribute('data-theme') === 'light';
+        if (isLight) {
+          root.removeAttribute('data-theme');
+          localStorage.setItem('theme', 'dark');
+        } else {
+          root.setAttribute('data-theme', 'light');
+          localStorage.setItem('theme', 'light');
+        }
+      });
+    }
+  })();
 
   // ── NAV ACTIVE STATE ────────────────────────────────────────────────────────
   // Work tab is active on the work page and all case study pages
