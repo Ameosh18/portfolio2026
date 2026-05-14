@@ -143,6 +143,7 @@
       .mobile-menu-links li:last-child { border-bottom: none; }
       .mobile-menu-links a {
         display: flex; align-items: center; justify-content: space-between;
+        font-family: var(--font-display, 'Playfair Display', Georgia, serif);
         font-size: clamp(40px,10vw,56px); font-weight: 500; color: var(--text, #fff);
         text-decoration: none; letter-spacing: -0.01em; line-height: 1; padding: 28px 0;
         transform: translateY(48px); opacity: 0;

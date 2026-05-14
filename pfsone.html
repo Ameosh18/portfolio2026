@@ -98,129 +98,6 @@
   .nav-links a.active { color: var(--text); }
   .nav-links .cta { color: var(--accent); }
 
-  /* ── HAMBURGER ── */
-  .nav-hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 5px;
-    width: 44px; height: 44px;
-    background: none; border: none;
-    cursor: pointer; padding: 0;
-    flex-shrink: 0;
-  }
-
-  .nav-hamburger span {
-    display: block;
-    height: 1.5px;
-    background: var(--text);
-    border-radius: 1px;
-    transform-origin: right center;
-    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
-                opacity 0.2s ease,
-                width 0.3s cubic-bezier(0.16,1,0.3,1);
-  }
-
-  .nav-hamburger span:nth-child(1) { width: 24px; }
-  .nav-hamburger span:nth-child(2) { width: 18px; }
-  .nav-hamburger span:nth-child(3) { width: 12px; }
-
-  .nav-hamburger.is-open span:nth-child(1) { width: 24px; transform: translateY(6.5px) rotate(-45deg); }
-  .nav-hamburger.is-open span:nth-child(2) { opacity: 0; width: 0; }
-  .nav-hamburger.is-open span:nth-child(3) { width: 24px; transform: translateY(-6.5px) rotate(45deg); }
-
-  /* ── MOBILE MENU ── */
-  .mobile-menu {
-    position: fixed; inset: 0;
-    background: rgba(10,10,10,0.97);
-    backdrop-filter: blur(20px);
-    z-index: 99;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 96px 40px 48px;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-
-  .mobile-menu.is-open { opacity: 1; pointer-events: all; }
-
-  .mobile-menu-links {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    flex: 1;
-    justify-content: center;
-  }
-
-  .mobile-menu-links li {
-    overflow: hidden;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .mobile-menu-links li:first-child { border-top: 1px solid var(--border); }
-
-  .mobile-menu-links a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-family: var(--font-display);
-    font-size: clamp(36px,9vw,52px);
-    font-weight: 400;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: -0.01em;
-    line-height: 1;
-    padding: 22px 0;
-    transform: translateY(48px);
-    opacity: 0;
-    transition: transform 0.5s cubic-bezier(0.16,1,0.3,1),
-                opacity 0.4s ease,
-                color 0.2s ease;
-  }
-
-  .mobile-menu.is-open .mobile-menu-links a { transform: translateY(0); opacity: 1; }
-  .mobile-menu.is-open .mobile-menu-links li:nth-child(1) a { transition-delay: 0.07s; }
-  .mobile-menu.is-open .mobile-menu-links li:nth-child(2) a { transition-delay: 0.13s; }
-  .mobile-menu.is-open .mobile-menu-links li:nth-child(3) a { transition-delay: 0.19s; }
-  .mobile-menu.is-open .mobile-menu-links li:nth-child(4) a { transition-delay: 0.25s; }
-  .mobile-menu-links a:hover { color: var(--text); }
-
-  .mobile-menu-links a .menu-arrow {
-    font-family: var(--font-body);
-    font-size: 16px;
-    color: var(--border);
-    transition: color 0.2s, transform 0.2s;
-    flex-shrink: 0;
-  }
-
-  .mobile-menu-links a:hover .menu-arrow { color: var(--accent); transform: translate(4px,-4px); }
-
-  .mobile-menu-footer {
-    padding-top: 32px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-shrink: 0;
-  }
-
-  .mobile-menu-footer-label {
-    font-size: 11px; letter-spacing: 0.12em;
-    color: var(--muted); text-transform: uppercase;
-  }
-
-  .mobile-menu-footer-cta {
-    font-size: 12px; font-weight: 500;
-    letter-spacing: 0.1em; color: var(--accent);
-    text-decoration: none; text-transform: uppercase;
-    transition: opacity 0.2s;
-  }
-
-  .mobile-menu-footer-cta:hover { opacity: 0.75; }
-
   /* ── LAYOUT ── */
   .container {
     max-width: 1280px;
@@ -1556,34 +1433,7 @@
   </div>
 </div>
 
-<!-- NAVIGATION -->
-<nav>
-  <a href="index.html" class="nav-logo">AK</a>
-  <ul class="nav-links">
-    <li><a href="index.html" class="active">Work</a></li>
-    <li><a href="index.html#ai-workflow">AI Workflow</a></li>
-    <li><a href="index.html#about">About</a></li>
-    <li><a href="index.html#contact">Contact</a></li>
-    <li><a href="index.html#contact" class="cta">Let's Talk →</a></li>
-  </ul>
-  <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation" aria-hidden="true">
-  <ul class="mobile-menu-links">
-    <li><a href="index.html">Work <span class="menu-arrow">↗</span></a></li>
-    <li><a href="index.html#ai-workflow">AI Workflow <span class="menu-arrow">↗</span></a></li>
-    <li><a href="index.html#about">About <span class="menu-arrow">↗</span></a></li>
-    <li><a href="index.html#contact">Contact <span class="menu-arrow">↗</span></a></li>
-  </ul>
-  <div class="mobile-menu-footer">
-    <span class="mobile-menu-footer-label">Available to join your company</span>
-    <a href="index.html#contact" class="mobile-menu-footer-cta">Let's Talk →</a>
-  </div>
-</div>
+<!-- NAV & MOBILE MENU injected by components.js -->
 
 <!-- HERO -->
 <section class="hero">
@@ -2274,6 +2124,7 @@
 }
 </script>
 
+<script src="components.js"></script>
 <script>
   // ── SCROLL REVEAL ──
   const reveals = document.querySelectorAll('.reveal');
@@ -2289,36 +2140,6 @@
       el.style.transitionDelay = `${i * 0.08}s`;
     });
   });
-
-  // ── HAMBURGER ──
-  (function () {
-    const hamburger = document.querySelector('.nav-hamburger');
-    const menu = document.getElementById('mobile-menu');
-    const menuLinks = menu.querySelectorAll('a');
-
-    function openMenu() {
-      hamburger.classList.add('is-open');
-      menu.classList.add('is-open');
-      hamburger.setAttribute('aria-expanded', 'true');
-      menu.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeMenu() {
-      hamburger.classList.remove('is-open');
-      menu.classList.remove('is-open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      menu.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    hamburger.addEventListener('click', () => {
-      hamburger.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu();
-    });
-
-    menuLinks.forEach(link => link.addEventListener('click', closeMenu));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
-  })();
 
   // ── ARTIFACT CARD MODAL ──
   (function () {
