@@ -5,8 +5,21 @@
   --text: #FFFFFF;
   --muted: #AAAAAA;
   --accent: #C8A97E;
+  --nav-bg: rgba(10, 10, 10, 0.92);
+  --overlay-bg: rgba(10, 10, 10, 0.97);
   --font-display: 'Cormorant Garamond', serif;
   --font-body: 'DM Sans', sans-serif;
+}
+
+[data-theme="light"] {
+  --bg: #F7F4F0;
+  --surface: #EDEAE5;
+  --border: #D4CFC8;
+  --text: #1A1A1A;
+  --muted: #5A5A5A;
+  --accent: #9B7A4D;
+  --nav-bg: rgba(247, 244, 240, 0.92);
+  --overlay-bg: rgba(247, 244, 240, 0.97);
 }
 
 *,
@@ -39,7 +52,43 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
 }
+
+/* ── THEME TOGGLE ── */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  padding: 0;
+}
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.theme-toggle svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* hide the icon not matching current theme */
+[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+.theme-toggle .icon-moon { display: block; }
+.theme-toggle .icon-sun { display: none; }
 
 /* ── NOISE TEXTURE ── */
 body::before {
@@ -63,7 +112,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 80px;
-  background: rgba(10, 10, 10, 0.92);
+  background: var(--nav-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
@@ -206,7 +255,7 @@ nav {
 .mobile-menu {
   position: fixed;
   inset: 0;
-  background: rgba(10, 10, 10, 0.97);
+  background: var(--overlay-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   z-index: 200;
