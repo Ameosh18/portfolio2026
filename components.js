@@ -140,11 +140,11 @@
       #site-nav { transition: z-index 0s; }
       body.menu-open #site-nav { z-index: 201; }
       .mobile-menu-links { list-style: none; display: flex; flex-direction: column; gap: 0; flex: 1; justify-content: center; }
-      .mobile-menu-links li { overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.04); }
+      .mobile-menu-links li { overflow: hidden; border-bottom: 1px solid var(--border, #1F1F1F); }
       .mobile-menu-links li:last-child { border-bottom: none; }
       .mobile-menu-links a {
         display: flex; align-items: center; justify-content: space-between;
-        font-size: clamp(40px,10vw,56px); font-weight: 300; color: var(--text, #fff);
+        font-size: clamp(40px,10vw,56px); font-weight: 500; color: var(--text, #fff);
         text-decoration: none; letter-spacing: -0.01em; line-height: 1; padding: 28px 0;
         transform: translateY(48px); opacity: 0;
         transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), opacity 0.5s ease, color 0.3s ease;
@@ -158,7 +158,7 @@
       .menu-item-label { display: flex; align-items: baseline; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
       .mobile-menu-links a:hover .menu-item-label { transform: translateX(12px); }
       .menu-num { font-size: 14px; font-weight: 400; color: var(--accent, #C8A97E); margin-right: 28px; opacity: 0.7; transform: translateY(-12px); letter-spacing: 0.1em; }
-      .mobile-menu-links a .menu-arrow { font-size: clamp(20px,5vw,24px); color: var(--accent, #C8A97E); opacity: 0.4; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; }
+      .mobile-menu-links a .menu-arrow { font-size: clamp(20px,5vw,24px); color: var(--accent, #C8A97E); opacity: 0.7; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; }
       .mobile-menu-links a:hover .menu-arrow { opacity: 1; transform: translate(6px,-6px) scale(1.1); }
       .mobile-menu-footer { padding-top: 32px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
       .availability-status { display: flex; align-items: center; gap: 12px; }
@@ -286,13 +286,21 @@
   })();
 
   // ── NAV ACTIVE STATE ────────────────────────────────────────────────────────
-  // Work tab is active on the work page and all case study pages
   const WORK_HASHES = new Set(['#work', '#digisense', '#pfsone']);
 
   function updateNavActive() {
     const workLink = document.querySelector('#site-nav a[href="#work"]');
-    if (!workLink) return;
-    workLink.classList.toggle('active', WORK_HASHES.has(window.location.hash));
+    const homeLink = document.querySelector('#site-nav a[href="index.html"]');
+
+    const isWork = WORK_HASHES.has(window.location.hash);
+    const isHome = (
+      window.location.pathname.endsWith('/') ||
+      window.location.pathname.endsWith('index.html') ||
+      window.location.pathname === ''
+    ) && !isWork;
+
+    if (workLink) workLink.classList.toggle('active', isWork);
+    if (homeLink) homeLink.classList.toggle('active', isHome);
   }
 
   window.addEventListener('hashchange', updateNavActive);
