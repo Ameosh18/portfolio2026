@@ -304,6 +304,6 @@
   }
 
   window.addEventListener('hashchange', updateNavActive);
-  window.addEventListener('DOMContentLoaded', updateNavActive);
+  updateNavActive();
 
 })();
