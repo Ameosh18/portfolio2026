@@ -11,7 +11,7 @@
   const routes = {
     '': { type: 'home' },
     '#': { type: 'home' },
-    '#work': { type: 'home', anchor: 'work' },
+    '#work': { type: 'case', file: 'work.html' },
     '#ai-workflow': { type: 'home', anchor: 'ai-workflow' },
     '#impact': { type: 'home', anchor: 'impact' },
     '#about': { type: 'home', anchor: 'about' },
@@ -141,7 +141,7 @@
     caseView.innerHTML = content;
     caseView.classList.remove('hidden');
     caseView.classList.add('view-enter');
-    
+
     // Scroll to top
     window.scrollTo(0, 0);
     
