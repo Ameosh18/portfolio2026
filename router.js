@@ -57,7 +57,6 @@
 
       homeView.classList.remove('hidden');
       homeView.classList.add('view-enter');
-      setActiveNav(null);
 
       requestAnimationFrame(() => {
         homeView.classList.add('view-enter-active');
@@ -142,7 +141,6 @@
     caseView.innerHTML = content;
     caseView.classList.remove('hidden');
     caseView.classList.add('view-enter');
-    setActiveNav('#work');
 
     // Scroll to top
     window.scrollTo(0, 0);
@@ -261,16 +259,6 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeArtifactModal();
   });
-
-  /**
-   * Highlight the matching nav link; pass null to clear all.
-   */
-  function setActiveNav(href) {
-    document.querySelectorAll('#site-nav .nav-links a').forEach(link => {
-      if (link.classList.contains('cta')) return;
-      link.classList.toggle('active', link.getAttribute('href') === href);
-    });
-  }
 
   /**
    * Scroll to Anchor smoothly

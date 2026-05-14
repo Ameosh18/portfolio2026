@@ -238,4 +238,18 @@
       if (e.key === 'Escape') closeMenu();
     });
   }
+
+  // ── NAV ACTIVE STATE ────────────────────────────────────────────────────────
+  // Work tab is active on the work page and all case study pages
+  const WORK_HASHES = new Set(['#work', '#digisense', '#pfsone']);
+
+  function updateNavActive() {
+    const workLink = document.querySelector('#site-nav a[href="#work"]');
+    if (!workLink) return;
+    workLink.classList.toggle('active', WORK_HASHES.has(window.location.hash));
+  }
+
+  window.addEventListener('hashchange', updateNavActive);
+  window.addEventListener('DOMContentLoaded', updateNavActive);
+
 })();
