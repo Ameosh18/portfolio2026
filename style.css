@@ -17,7 +17,7 @@
   --border: #D4CFC8;
   --text: #1A1A1A;
   --muted: #5A5A5A;
-  --accent: #9B7A4D;
+  --accent: #7A5E34;
   --nav-bg: rgba(247, 244, 240, 0.92);
   --overlay-bg: rgba(247, 244, 240, 0.97);
 }
@@ -142,7 +142,7 @@ nav {
 .nav-links a {
   display: inline-block;
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--muted);
   text-decoration: none;
   letter-spacing: 0.02em;
   padding: 4px 20px;
@@ -295,7 +295,7 @@ body.menu-open #site-nav {
 
 .mobile-menu-links li {
   overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid var(--border);
 }
 
 .mobile-menu-links li:last-child {
@@ -654,7 +654,7 @@ body.menu-open #site-nav {
 }
 
 .badge {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface);
   border: 1px solid var(--border);
   padding: 3px 8px;
   border-radius: 4px;
@@ -1712,6 +1712,9 @@ body.menu-open #site-nav {
 
 .workflow-step.is-inactive .step-title {
   color: rgba(255, 255, 255, 0.18);
+}
+[data-theme="light"] .workflow-step.is-inactive .step-title {
+  color: rgba(26, 26, 26, 0.25);
 }
 
 .workflow-step.is-inactive .step-desc {

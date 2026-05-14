@@ -92,7 +92,7 @@
       #site-nav .nav-logo-img { height: 52px; width: auto; object-fit: contain; }
       #site-nav .nav-links { display: flex; align-items: center; gap: 0; list-style: none; }
       #site-nav .nav-links a {
-        display: inline-block; font-size: 14px; color: var(--muted, rgba(255,255,255,0.55));
+        display: inline-block; font-size: 14px; color: var(--muted, #AAAAAA);
         text-decoration: none; letter-spacing: 0.02em; padding: 4px 20px;
         position: relative; transition: color 0.2s;
       }
@@ -154,18 +154,18 @@
       .mobile-menu.is-open .mobile-menu-links li:nth-child(2) a { transition-delay: 0.13s; }
       .mobile-menu.is-open .mobile-menu-links li:nth-child(3) a { transition-delay: 0.19s; }
       .mobile-menu.is-open .mobile-menu-links li:nth-child(4) a { transition-delay: 0.25s; }
-      .mobile-menu-links a:hover, .mobile-menu-links a:active { color: #C8A97E; }
+      .mobile-menu-links a:hover, .mobile-menu-links a:active { color: var(--accent, #C8A97E); }
       .menu-item-label { display: flex; align-items: baseline; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
       .mobile-menu-links a:hover .menu-item-label { transform: translateX(12px); }
-      .menu-num { font-size: 14px; font-weight: 400; color: #C8A97E; margin-right: 28px; opacity: 0.7; transform: translateY(-12px); letter-spacing: 0.1em; }
-      .mobile-menu-links a .menu-arrow { font-size: clamp(20px,5vw,24px); color: #C8A97E; opacity: 0.4; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; }
+      .menu-num { font-size: 14px; font-weight: 400; color: var(--accent, #C8A97E); margin-right: 28px; opacity: 0.7; transform: translateY(-12px); letter-spacing: 0.1em; }
+      .mobile-menu-links a .menu-arrow { font-size: clamp(20px,5vw,24px); color: var(--accent, #C8A97E); opacity: 0.4; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0; }
       .mobile-menu-links a:hover .menu-arrow { opacity: 1; transform: translate(6px,-6px) scale(1.1); }
       .mobile-menu-footer { padding-top: 32px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
       .availability-status { display: flex; align-items: center; gap: 12px; }
       .pulse-dot { width: 6px; height: 6px; border-radius: 50%; background-color: #10B981; box-shadow: 0 0 0 0 rgba(16,185,129,0.7); animation: pulseGlow 2s infinite cubic-bezier(0.66,0,0,1); }
       @keyframes pulseGlow { to { box-shadow: 0 0 0 10px rgba(16,185,129,0); } }
-      .mobile-menu-footer-label { font-size: 11px; letter-spacing: 0.12em; color: #888; text-transform: uppercase; }
-      .mobile-menu-footer-cta { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: #C8A97E; text-decoration: none; text-transform: uppercase; transition: opacity 0.2s; }
+      .mobile-menu-footer-label { font-size: 11px; letter-spacing: 0.12em; color: var(--muted, #888); text-transform: uppercase; }
+      .mobile-menu-footer-cta { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: var(--accent, #C8A97E); text-decoration: none; text-transform: uppercase; transition: opacity 0.2s; }
       .mobile-menu-footer-cta:hover { opacity: 0.75; }
 
       /* ── SHARED FOOTER ── */
@@ -177,14 +177,28 @@
       .footer-exploring-label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted, #888888); white-space: nowrap; }
       .footer-statement { font-size: 14px; color: var(--text, #FFFFFF); line-height: 1.65; }
       .footer-contact { display: flex; flex-direction: column; align-items: flex-end; justify-self: end; gap: 10px; }
-      .footer-contact-link { font-size: 14px; font-weight: 500; color: #C8A97E; text-decoration: none; text-underline-offset: 3px; text-decoration: underline; text-decoration-color: transparent; transition: color 0.2s ease, text-decoration-color 0.2s ease; }
-      .footer-contact-link:hover { color: #D4B896; text-decoration-color: currentColor; }
+      .footer-contact-link { font-size: 14px; font-weight: 500; color: var(--accent, #C8A97E); text-decoration: none; text-underline-offset: 3px; text-decoration: underline; text-decoration-color: transparent; transition: color 0.2s ease, text-decoration-color 0.2s ease; }
+      .footer-contact-link:hover { text-decoration-color: currentColor; }
       .footer-email { font-size: 12px; color: var(--muted, #888888); text-decoration: none; transition: color 0.2s ease; }
-      .footer-email:hover { color: #C8A97E; }
+      .footer-email:hover { color: var(--accent, #C8A97E); }
 
       /* ── SPACING FIX: reduce gap before footer on case study pages ── */
       .next-case { padding-bottom: 64px !important; }
       .site-footer { margin-top: 0; }
+
+      /* ── THEME TOGGLE ── */
+      .theme-toggle {
+        background: none; border: 1px solid var(--border, #1F1F1F); color: var(--text, #fff);
+        cursor: pointer; width: 36px; height: 36px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        transition: border-color 0.2s, color 0.2s; padding: 0;
+      }
+      .theme-toggle:hover { border-color: var(--accent, #C8A97E); color: var(--accent, #C8A97E); }
+      .theme-toggle svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+      .theme-toggle .icon-moon { display: block; }
+      .theme-toggle .icon-sun { display: none; }
+      [data-theme="light"] .theme-toggle .icon-moon { display: none; }
+      [data-theme="light"] .theme-toggle .icon-sun { display: block; }
 
       /* ── RESPONSIVE NAV ── */
       @media (max-width: 1024px) {
