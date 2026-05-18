@@ -2612,4 +2612,163 @@ body.menu-open #site-nav {
 
 @keyframes spin {
   to { transform: rotate(360deg); }
-}
+}
+/* ── SCROLL VELOCITY GALLERY ── */
+
+.scroll-velocity-container {
+  position: relative;
+  min-height: 300vh;
+  background: var(--bg);
+}
+
+.gallery-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 2000px;
+  overflow: hidden;
+}
+
+.gallery-wrapper {
+  display: flex;
+  gap: 32px;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-card {
+  position: relative;
+  width: 320px;
+  height: 420px;
+  border-radius: 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  box-shadow: 0 20px 60px rgba(200, 169, 126, 0.15);
+}
+
+.project-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 10, 0.85) 0%,
+    rgba(10, 10, 10, 0.4) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.project-card-content {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  right: 24px;
+  color: white;
+  z-index: 2;
+}
+
+.project-card-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.01em;
+}
+
+.project-card-subtitle {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-card-subtitle {
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .project-card {
+    width: 280px;
+    height: 380px;
+  }
+  
+  .gallery-wrapper {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-velocity-container {
+    min-height: 200vh;
+  }
+  
+  .gallery-sticky {
+    height: 80vh;
+  }
+  
+  .project-card {
+    width: 240px;
+    height: 320px;
+  }
+  
+  .gallery-wrapper {
+    gap: 16px;
+  }
+  
+  .project-card-title {
+    font-size: 18px;
+  }
+  
+  .project-card-subtitle {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll-velocity-container {
+    min-height: 150vh;
+  }
+  
+  .gallery-sticky {
+    height: 60vh;
+  }
+  
+  .project-card {
+    width: 200px;
+    height: 280px;
+  }
+  
+  .gallery-wrapper {
+    gap: 12px;
+  }
+  
+  .project-card-title {
+    font-size: 16px;
+  }
+  
+  .project-card-content {
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+  }
+}
